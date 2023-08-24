@@ -151,6 +151,9 @@ class PluginKbrenamingKb extends CommonDropdown {
             $get_data = true;
             while($get_data){
                 $file = file_get_contents(self::MICROSOFT_CATALOG_URL_SEARCH . $search['q'], false);
+                if (empty($file)){
+                    continue;
+                }
                 $dom = new DOMDocument;
                 $dom->loadHTML($file, LIBXML_NOWARNING );
                 unset($file);

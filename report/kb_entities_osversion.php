@@ -66,7 +66,7 @@ if (empty($app_name)){
     exit;
 }
 $app_name_sql = $app_name[0]!='^'?'^'.$app_name:$app_name;
-$app_name_sql = $app_name_sql[strlen($app_name_sql)]!='$'?$app_name_sql.'$':$app_name_sql;
+$app_name_sql = strlen($app_name_sql) > 0 && $app_name_sql[strlen($app_name_sql)-1]!='$'?$app_name_sql.'$':$app_name_sql;
 if (stripos( $app_name_sql, "^kb" ) !== 0){
     Html::footer();
     exit;

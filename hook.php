@@ -54,7 +54,7 @@ function plugin_kbrenaming_install() {
         $migrationname = 'CliMigration';
     }
 
-    $migration = new $migrationname(PLUGIN_MSF_VERSION);
+    $migration = new $migrationname(PLUGIN_KBRENAMING_VERSION);
     $migration->displayMessage("creation Table in db ");
 
     //Create table only if it does not exists yet!

@@ -71,7 +71,7 @@ function plugin_kbrenaming_install() {
                   KEY `name` (`name`),
                   KEY `plugin_kbrenaming_kbgroups_id` (`plugin_kbrenaming_kbgroups_id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
-        $DB->queryOrDie($query, $DB->error());
+        $DB->doQueryOrDie($query, $DB->error());
     }
 
     //Create table only if it does not exists yet!
@@ -87,26 +87,26 @@ function plugin_kbrenaming_install() {
                   KEY `name` (`name`),
                   KEY `softwarecategories_id` (`softwarecategories_id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
-        $DB->queryOrDie($query, $DB->error());
+        $DB->doQueryOrDie($query, $DB->error());
     }
 
     // add display preferences
     $query_display_pref = "SELECT id
       FROM glpi_displaypreferences
       WHERE itemtype = 'PluginKbrenamingKb'";
-    $res_display_pref = $DB->query($query_display_pref);
+    $res_display_pref = $DB->doQuery($query_display_pref);
     if ($DB->numrows($res_display_pref) == 0) {
-        $DB->query("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','3002','1','0');");
-        $DB->query("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','16','2','0');");
-        $DB->query("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','3003','3','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','3002','1','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','16','2','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','3003','3','0');");
     }
     $query_display_pref = "SELECT id
       FROM glpi_displaypreferences
       WHERE itemtype = 'PluginKbrenamingKbGroup'";
-    $res_display_pref = $DB->query($query_display_pref);
+    $res_display_pref = $DB->doQuery($query_display_pref);
     if ($DB->numrows($res_display_pref) == 0) {
-        $DB->query("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKbGroup','3001','1','0');");
-        $DB->query("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKbGroup','16','2','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKbGroup','3001','1','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKbGroup','16','2','0');");
     }
 
     //execute the whole migration
@@ -133,7 +133,7 @@ function plugin_kbrenaming_uninstall() {
         $tablename = 'glpi_plugin_kbrenaming_' . $table;
         //Create table only if it does not exists yet!
         if ($DB->tableExists($tablename)) {
-            $DB->queryOrDie(
+            $DB->doQueryOrDie(
                 "DROP TABLE `$tablename`",
                 $DB->error()
             );

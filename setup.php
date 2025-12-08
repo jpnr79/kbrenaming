@@ -106,8 +106,8 @@ function plugin_version_kbrenaming() {
            'homepage'       => 'https://github.com/msf-ocb/glpi-plugin-kbrenaming',
            'requirements'   => [
               'glpi' => [
-                  'min' => PLUGIN_KBRENAMING_GLPI_MIN_VERSION,
-                  'max' => PLUGIN_KBRENAMING_GLPI_MAX_VERSION,
+                  'min' => '11.0',
+                  'max' => '12.0',
                   'dev' => PLUGIN_KBRENAMING_OFFICIAL_RELEASE == 0
                ]
             ]

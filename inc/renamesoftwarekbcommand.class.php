@@ -50,7 +50,7 @@ class RenamesoftwarekbCommand extends AbstractCommand{
     {
         parent::configure();
 
-        $this->setName('Kbrenaming:kb:rename_software');
+        $this->setName('plugins:kbrenaming:rename_software');
         $this->setDescription(__('renaming software Kb Microsoft'));
 
     }

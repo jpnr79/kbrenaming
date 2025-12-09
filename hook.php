@@ -61,16 +61,16 @@ function plugin_kbrenaming_install() {
     if (!$DB->tableExists('glpi_plugin_kbrenaming_kbs')) {
         //table creation query
         $query = "CREATE TABLE `glpi_plugin_kbrenaming_kbs` (
-                  `id` int(11) NOT NULL AUTO_INCREMENT,
-                  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                  `comment` text COLLATE utf8_unicode_ci DEFAULT NULL,
-                  `plugin_kbrenaming_kbgroups_id` int(11) NOT NULL DEFAULT 0,
+                  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                  `plugin_kbrenaming_kbgroups_id` BIGINT UNSIGNED NOT NULL DEFAULT 0,
                   `disabled_update` tinyint(1) NOT NULL DEFAULT 0,
                   PRIMARY KEY (`id`),
                   UNIQUE KEY `name_UNIQUE` (`name`),
                   KEY `name` (`name`),
                   KEY `plugin_kbrenaming_kbgroups_id` (`plugin_kbrenaming_kbgroups_id`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
         $DB->doQueryOrDie($query, $DB->error());
     }
 
@@ -78,15 +78,15 @@ function plugin_kbrenaming_install() {
     if (!$DB->tableExists('glpi_plugin_kbrenaming_kbgroups')) {
         //table creation query
         $query = "CREATE TABLE `glpi_plugin_kbrenaming_kbgroups` (
-                  `id` int(11) NOT NULL AUTO_INCREMENT,
-                  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                  `comment` text COLLATE utf8_unicode_ci DEFAULT NULL,
-                  `softwarecategories_id` int(11) NOT NULL DEFAULT 0,
+                  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                  `softwarecategories_id` BIGINT UNSIGNED NOT NULL DEFAULT 0,
                   PRIMARY KEY (`id`),
                   UNIQUE KEY `name_UNIQUE` (`name`),
                   KEY `name` (`name`),
                   KEY `softwarecategories_id` (`softwarecategories_id`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
         $DB->doQueryOrDie($query, $DB->error());
     }
 
@@ -96,17 +96,17 @@ function plugin_kbrenaming_install() {
       WHERE itemtype = 'PluginKbrenamingKb'";
     $res_display_pref = $DB->doQuery($query_display_pref);
     if ($DB->numrows($res_display_pref) == 0) {
-        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','3002','1','0');");
-        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','16','2','0');");
-        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKb','3003','3','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` (`itemtype`, `num`, `rank`, `users_id`) VALUES ('PluginKbrenamingKb', '3002', '1', '0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` (`itemtype`, `num`, `rank`, `users_id`) VALUES ('PluginKbrenamingKb', '16', '2', '0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` (`itemtype`, `num`, `rank`, `users_id`) VALUES ('PluginKbrenamingKb', '3003', '3', '0');");
     }
     $query_display_pref = "SELECT id
       FROM glpi_displaypreferences
       WHERE itemtype = 'PluginKbrenamingKbGroup'";
     $res_display_pref = $DB->doQuery($query_display_pref);
     if ($DB->numrows($res_display_pref) == 0) {
-        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKbGroup','3001','1','0');");
-        $DB->doQuery("INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginKbrenamingKbGroup','16','2','0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` (`itemtype`, `num`, `rank`, `users_id`) VALUES ('PluginKbrenamingKbGroup', '3001', '1', '0');");
+        $DB->doQuery("INSERT INTO `glpi_displaypreferences` (`itemtype`, `num`, `rank`, `users_id`) VALUES ('PluginKbrenamingKbGroup', '16', '2', '0');");
     }
 
     //execute the whole migration

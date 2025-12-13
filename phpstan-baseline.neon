@@ -1,0 +1,193 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined static method Toolbox\:\:logDebug\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 9
+			path: hook.php
+
+		-
+			message: '#^Call to static method getTable\(\) on an unknown class SoftwareVersion\.$#'
+			identifier: class.notFound
+			count: 2
+			path: hook.php
+
+		-
+			message: '#^Instantiated class CliMigration not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: hook.php
+
+		-
+			message: '#^Instantiated class OperatingSystem not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: hook.php
+
+		-
+			message: '#^Instantiated class SoftwareVersion not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: hook.php
+
+		-
+			message: '#^Access to constant REQUIRED on an unknown class Symfony\\Component\\Console\\Input\\InputArgument\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^Call to an undefined method GlpiPlugin\\Kbrenaming\\KbfindCommand\:\:addArgument\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^Call to an undefined method GlpiPlugin\\Kbrenaming\\KbfindCommand\:\:setDescription\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^Call to an undefined method GlpiPlugin\\Kbrenaming\\KbfindCommand\:\:setName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^GlpiPlugin\\Kbrenaming\\KbfindCommand\:\:configure\(\) calls parent\:\:configure\(\) but GlpiPlugin\\Kbrenaming\\KbfindCommand does not extend any class\.$#'
+			identifier: class.noParent
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^Parameter \$input of method GlpiPlugin\\Kbrenaming\\KbfindCommand\:\:execute\(\) has invalid type Symfony\\Component\\Console\\Input\\InputInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^Parameter \$output of method GlpiPlugin\\Kbrenaming\\KbfindCommand\:\:execute\(\) has invalid type Symfony\\Component\\Console\\Output\\OutputInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/kbfindcommand.class.php
+
+		-
+			message: '#^Access to an undefined property GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:\$db\.$#'
+			identifier: property.notFound
+			count: 2
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Access to an undefined property GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:\$output\.$#'
+			identifier: property.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Access to constant VERBOSITY_DEBUG on an unknown class Symfony\\Component\\Console\\Output\\OutputInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Access to constant VERBOSITY_VERBOSE on an unknown class Symfony\\Component\\Console\\Output\\OutputInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Access to constant VERBOSITY_VERY_VERBOSE on an unknown class Symfony\\Component\\Console\\Output\\OutputInterface\.$#'
+			identifier: class.notFound
+			count: 3
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Call to an undefined method GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:setDescription\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Call to an undefined method GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:setName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Call to an undefined method GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:writelnOutputWithProgressBar\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Call to static method getTable\(\) on an unknown class SoftwareVersion\.$#'
+			identifier: class.notFound
+			count: 2
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:configure\(\) calls parent\:\:configure\(\) but GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand does not extend any class\.$#'
+			identifier: class.noParent
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Instantiated class OperatingSystem not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Instantiated class SoftwareVersion not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Instantiated class Symfony\\Component\\Console\\Helper\\ProgressBar not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Parameter \$input of method GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:execute\(\) has invalid type Symfony\\Component\\Console\\Input\\InputInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Parameter \$output of method GlpiPlugin\\Kbrenaming\\RenamesoftwarekbCommand\:\:execute\(\) has invalid type Symfony\\Component\\Console\\Output\\OutputInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: inc/renamesoftwarekbcommand.class.php
+
+		-
+			message: '#^Call to static method getTable\(\) on an unknown class Item_SoftwareVersion\.$#'
+			identifier: class.notFound
+			count: 3
+			path: inc/toolbox.class.php
+
+		-
+			message: '#^Call to an undefined static method Search\:\:makeTextSearch\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: report/kb_entities_osversion.php
+
+		-
+			message: '#^Call to static method title\(\) on an unknown class Report\.$#'
+			identifier: class.notFound
+			count: 1
+			path: report/kb_entities_osversion.php
+
+		-
+			message: '#^Instantiated class SoftwareVersion not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: report/kb_entities_osversion.php
+
+		-
+			message: '#^Access to undefined constant Session\:\:DEBUG_MODE\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: setup.php

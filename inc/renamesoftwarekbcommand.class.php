@@ -164,7 +164,7 @@ class RenamesoftwarekbCommand extends AbstractCommand{
                     $condition = ['softwares_id' => $software['id']];
                     $softwareversions =  $softwareversion_db->find($condition);
                     foreach ($softwareversions as $id => $softwareversion){
-//                        $this->getFromDB($this->fields['id']);
+//                        $this->getFromDB($this->fields['id'] ?? '');
                         PluginKbrenamingToolbox::change_softwareversion($id, $soft_version_id);
                     }
                 }

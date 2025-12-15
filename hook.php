@@ -152,7 +152,7 @@ function plugin_kbrenaming_uninstall() {
 function plugin_item_add_update_kbrenaming(Software $parm): Software {
     global $DB;
     Toolbox::logDebug('-------------------- Start item_add/update : '. get_class($parm) .'--------------------');
-    $kbName = $parm->fields['name'];
+    $kbName = $parm->fields['name'] ?? '';
     if (preg_match('/^kb[0-9]{6,}$/i', $kbName,) !== 1) {
         return $parm;
     }
@@ -167,7 +167,7 @@ function plugin_item_add_update_kbrenaming(Software $parm): Software {
     $old_field = $parm->fields;
     Toolbox::logDebug('$kbData : ' . print_r($kbData, true));
     $software = new Software();
-    $condition = ['name' => $kbData->fields['plugin_kbrenaming_kbgroup']['name']];
+    $condition = ['name' => $kbData->fields['plugin_kbrenaming_kbgroup'] ?? ''['name']];
     Toolbox::logDebug('$condition : ' . print_r($condition, true));
     $softs = $software->find($condition, [], 1);
     Toolbox::logDebug('$soft : ' . print_r($softs, true));
@@ -177,7 +177,7 @@ function plugin_item_add_update_kbrenaming(Software $parm): Software {
         $input_manufacturer = ['name' => 'Microsoft'];
         $manufacturers_id = $manufacturer_db->findID($input_manufacturer);
 
-        $input = $kbData->fields['plugin_kbrenaming_kbgroup'];
+        $input = $kbData->fields['plugin_kbrenaming_kbgroup'] ?? '';
         unset($input['id']);
         unset($input['softwarecategory']);
         $input['entities_id'] = $old_field['entities_id'];
@@ -196,12 +196,12 @@ function plugin_item_add_update_kbrenaming(Software $parm): Software {
     $operatingsystems_id = $operatingsystem_db->findID($input_operatingsystem);
 
     $softwareversion = new SoftwareVersion();
-    $condition = ['name' => $kbData->fields['name']];
+    $condition = ['name' => $kbData->fields['name'] ?? ''];
     $soft_versions = $softwareversion->find($condition,[],1);
     if (empty($soft_versions)) {
         $input = [
-            'name' => $kbData->fields['name'],
-            'comment' => $kbData->fields['comment'],
+            'name' => $kbData->fields['name'] ?? '',
+            'comment' => $kbData->fields['comment'] ?? '',
             'entities_id' => $old_field['entities_id'],
             'is_recursive' => 1,
             'softwares_id' => $soft_id,
@@ -220,7 +220,7 @@ function plugin_item_add_update_kbrenaming(Software $parm): Software {
             PluginKbrenamingToolbox::change_softwareversion($id, $soft_version_id);
         }
     }
-    if ($old_field['id'] !== $parm->fields['id'] ){
+    if ($old_field['id'] !== $parm->fields['id'] ?? '' ){
         $result = $DB->query("
                 DELETE FROM `" . SoftwareVersion::getTable() . "`
                 WHERE `" . SoftwareVersion::getTable() . "`.`softwares_id` = '" . $old_field['id'] . "' ;
@@ -237,14 +237,14 @@ function plugin_post_item_form_kbrenaming($params){
     if (isset($params['item']) && $params['item'] instanceof CommonDBTM && get_class($params['item']) == 'Software') {
         Toolbox::logDebug('-------------------- Start post_item_form : '. get_class($params['item']) .'--------------------');
         $software = $params['item'];
-        if ($software->fields['is_deleted']==1 && preg_match('/^kb[0-9]{6,}$/i', $software->fields['name'],) === 1){
+        if ($software->fields['is_deleted']==1 && preg_match('/^kb[0-9]{6,}$/i', $software->fields['name'] ?? '',) === 1){
             $softwareversion = new SoftwareVersion();
-            $condition = ['name' => $software->fields['name']];
+            $condition = ['name' => $software->fields['name'] ?? ''];
             $soft_versions = $softwareversion->find($condition,[],1);
             if (!empty($soft_versions)){
                 $soft_version = array_shift($soft_versions);
                 if(!empty($soft_version['softwares_id'])) {
-                    $condition = ['id' => $software->fields['id']];
+                    $condition = ['id' => $software->fields['id'] ?? ''];
                     $software->delete($condition, true);
                     Html::redirect($software->getFormURLWithID($soft_version['softwares_id']));
                 }
@@ -273,11 +273,11 @@ function plugin_fusioninventory_addinventoryinfos_kbrenaming($params = []){
         if ($kbData === false){
             continue;
         }
-        $software['COMMENTS'] = $kbData->fields['comment'];
-        $software['NAME'] = $kbData->fields['plugin_kbrenaming_kbgroup']['name'];
+        $software['COMMENTS'] = $kbData->fields['comment'] ?? '';
+        $software['NAME'] = $kbData->fields['plugin_kbrenaming_kbgroup'] ?? ''['name'];
         $software['VERSION'] = $kbName;
         $software['PUBLISHER'] = 'Microsoft';
-        $software['SYSTEM_CATEGORY'] = $kbData->fields['plugin_kbrenaming_kbgroup']['softwarecategory']['name'];
+        $software['SYSTEM_CATEGORY'] = $kbData->fields['plugin_kbrenaming_kbgroup'] ?? ''['softwarecategory']['name'];
     }
     return $params;
 }

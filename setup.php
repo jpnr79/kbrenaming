@@ -62,12 +62,13 @@ function plugin_init_kbrenaming() {
     $Plugin = new Plugin();
     $moduleId = 0;
 
-    $debug_mode = true;
-    if (isset($_SESSION['glpi_use_mode'])) {
-      $debug_mode = ($_SESSION['glpi_use_mode'] == Session::DEBUG_MODE);
-    }
-    if ($Plugin->isInstalled('kbrenaming')
-       && $Plugin->isActivated('kbrenaming')) { // check if plugin is active
+      $debug_mode = true;
+      if (isset($_SESSION['glpi_use_mode'])) {
+         $debug_mode = ($_SESSION['glpi_use_mode'] === (defined('Session::DEBUG_MODE') ? constant('Session::DEBUG_MODE') : 2));
+      }
+      $is_installed = method_exists($Plugin, 'isInstalled') ? $Plugin->isInstalled('kbrenaming') : true;
+      $is_activated = method_exists($Plugin, 'isActivated') ? $Plugin->isActivated('kbrenaming') : true;
+      if ($is_installed && $is_activated) { // check if plugin is active
 
         Plugin::registerClass('PluginKbrenamingKb');
         Plugin::registerClass('PluginKbrenamingKbGroup');
@@ -123,6 +124,35 @@ function plugin_version_kbrenaming() {
  */
 function plugin_kbrenaming_check_prerequisites(){
 
+   // GLPI must be within supported version range
+   $min_version = defined('PLUGIN_KBRENAMING_GLPI_MIN_VERSION') ? PLUGIN_KBRENAMING_GLPI_MIN_VERSION : '10.0.0';
+   $max_version = defined('PLUGIN_KBRENAMING_GLPI_MAX_VERSION') ? PLUGIN_KBRENAMING_GLPI_MAX_VERSION : '12.1.0';
+   $glpi_version = '0.0.0';
+   $version_file = defined('GLPI_ROOT') ? GLPI_ROOT . '/version' : __DIR__ . '/../../../version';
+   if (file_exists($version_file)) {
+      $glpi_version = trim(file_get_contents($version_file));
+   }
+   $ok = version_compare($glpi_version, $min_version, '>=') && version_compare($glpi_version, $max_version, '<');
+   if (!$ok) {
+      $msg = sprintf(
+         'ERROR [setup.php:plugin_kbrenaming_check_prerequisites] GLPI version %s not in [%s, %s), user=%s',
+         $glpi_version,
+         $min_version,
+         $max_version,
+         $_SESSION['glpiname'] ?? 'unknown'
+      );
+      // Try Toolbox::logInFile, fallback to file log
+      if (!class_exists('Toolbox') && defined('GLPI_ROOT') && file_exists(GLPI_ROOT . '/src/Toolbox.php')) {
+         require_once GLPI_ROOT . '/src/Toolbox.php';
+      }
+      if (class_exists('Toolbox') && method_exists('Toolbox', 'logInFile')) {
+         Toolbox::logInFile('kbrenaming', $msg);
+      } else if (defined('GLPI_ROOT')) {
+         $logfile = GLPI_ROOT . '/files/_log/kbrenaming-error.log';
+         @file_put_contents($logfile, $msg."\n", FILE_APPEND);
+      }
+      return false;
+   }
    return true;
 }
 

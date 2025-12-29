@@ -127,12 +127,14 @@ function plugin_kbrenaming_check_prerequisites(){
    // GLPI must be within supported version range
    $min_version = defined('PLUGIN_KBRENAMING_GLPI_MIN_VERSION') ? PLUGIN_KBRENAMING_GLPI_MIN_VERSION : '10.0.0';
    $max_version = defined('PLUGIN_KBRENAMING_GLPI_MAX_VERSION') ? PLUGIN_KBRENAMING_GLPI_MAX_VERSION : '12.1.0';
-   $glpi_version = '0.0.0';
+   $glpi_version = 'unknown';
    $version_file = defined('GLPI_ROOT') ? GLPI_ROOT . '/version' : __DIR__ . '/../../../version';
-   if (file_exists($version_file)) {
+   if (is_file($version_file)) {
       $glpi_version = trim(file_get_contents($version_file));
+   } elseif (defined('GLPI_VERSION')) {
+      $glpi_version = constant('GLPI_VERSION');
    }
-   $ok = version_compare($glpi_version, $min_version, '>=') && version_compare($glpi_version, $max_version, '<');
+   $ok = ($glpi_version !== 'unknown') && version_compare($glpi_version, $min_version, '>=') && version_compare($glpi_version, $max_version, '<');
    if (!$ok) {
       $msg = sprintf(
          'ERROR [setup.php:plugin_kbrenaming_check_prerequisites] GLPI version %s not in [%s, %s), user=%s',
